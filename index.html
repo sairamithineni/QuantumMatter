@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SaiRam Ithineni | Condensed Matter Physicist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Remix Icons for UI elements -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f9fb;
+      --text: #1a1a1a;
+      --muted: #666666;
+      /* NEW COLOR: Teal */
+      --accent: #00897b; 
+      --accent-rgb: 0, 137, 123; /* Used for rgba transparency */
+      --border: #e6e6e6;
+      --shadow: rgba(0,0,0,0.06);
+      --header-height: 70px; /* Fixed height variable for consistency */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      /* Optimization: Removes grey highlight on tap for mobile */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      /* Fix for sticky header covering content when clicking links */
+      scroll-padding-top: var(--header-height);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark-mode {
+      --bg: #111111; 
+      --surface: #1c1c1c;
+      --text: #e0e0e0;
+      --muted: #a0a0a0;
+      /* NEW COLOR: Light Teal for Dark Mode */
+      --accent: #4db6ac;
+      --accent-rgb: 77, 182, 172;
+      --border: #333333;
+      --shadow: rgba(0,0,0,0.3);
+
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
+        radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 3px);
+      background-size: 550px 550px, 350px 350px, 250px 250px;
+      background-position: 0 0, 40px 60px, 130px 270px;
+    }
+
+    body.dark-mode header {
+      background: rgba(17, 17, 17, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.dark-mode .sticky-img {
+      background-color: #1c1c1c;
+      border-color: var(--border);
+    }
+    
+    body.dark-mode .social-icon {
+        background: #2a2a2a;
+        color: #e0e0e0;
+        border-color: #333;
+    }
+
+    /* Only apply hover colors in dark mode if device supports hover */
+    @media (hover: hover) {
+        body.dark-mode .social-icon:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+    }
+    
+    /* Dark mode specific for image icons */
+    body.dark-mode .social-icon img {
+        /* Ensure it remains visible in dark mode */
+        filter: grayscale(100%) brightness(1.2);
+        opacity: 0.9;
+    }
+    
+    /* Update Contact Cards for Dark Mode */
+    body.dark-mode .contact-card {
+        background: #1c1c1c;
+        border-color: #333;
+    }
+    
+    @media (hover: hover) {
+        body.dark-mode .contact-card:hover {
+            border-color: var(--accent);
+            background: #252525;
+        }
+    }
+    
+    body.dark-mode .action-btn {
+        background: #252525;
+        border-color: #333;
+        color: #e0e0e0;
+    }
+    
+    @media (hover: hover) {
+        body.dark-mode .action-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+    }
+
+    /* ===== NAVBAR ===== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: var(--header-height); /* Enforce height */
+      z-index: 1000;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* Safari Fix */
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 32px; /* Adjusted padding since we use fixed height on header */
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.3px;
+      color: var(--text);
+      text-decoration: none; /* Removed underline for logo link */
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Desktop Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      margin-left: 28px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    @media (hover: hover) {
+        .nav-links a:hover, .nav-links a.active {
+          color: var(--accent);
+        }
+    }
+    
+    /* Ensure active state works regardless of hover capability */
+    .nav-links a.active {
+        color: var(--accent);
+    }
+
+    /* MODIFIED: Smoother Underline Animation */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%; /* Start invisible */
+      height: 2px;
+      background-color: var(--accent);
+      border-radius: 2px;
+      /* Smooth transition for width */
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a.active::after {
+      width: 100%; /* Animate to full width */
+    }
+
+    /* ===== THEME TOGGLE & MOBILE BTN ===== */
+    .controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .theme-toggle, .mobile-toggle {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, color 0.3s;
+      margin-left: 20px;
+    }
+
+    @media (hover: hover) {
+        .theme-toggle:hover, .mobile-toggle:hover {
+          color: var(--accent);
+          transform: scale(1.1);
+        }
+    }
+    
+    /* Active state for touch */
+    .theme-toggle:active, .mobile-toggle:active {
+        color: var(--accent);
+        transform: scale(0.95);
+    }
+
+    .theme-toggle svg, .mobile-toggle i {
+      width: 20px;
+      height: 20px;
+      font-size: 20px; /* For remix icon */
+      stroke-width: 2;
+    }
+
+    .theme-toggle .sun-icon { display: none; }
+    .theme-toggle .moon-icon { display: block; }
+    body.dark-mode .theme-toggle .sun-icon { display: block; }
+    body.dark-mode .theme-toggle .moon-icon { display: none; }
+
+    .mobile-toggle {
+        display: none; /* Hidden on desktop */
+    }
+
+    /* ===== MOBILE MENU OVERLAY ===== */
+    .mobile-menu {
+        position: fixed;
+        top: var(--header-height); /* Match header height variable */
+        left: 0;
+        width: 100%;
+        background: rgba(var(--bg), 0.98); /* Slightly transparent if variable supported, else fallback */
+        background: var(--bg); /* Fallback */
+        border-bottom: 1px solid var(--border);
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        transform: translateY(-150%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Smoother spring-like easing */
+        z-index: 999;
+        box-shadow: 0 10px 30px var(--shadow);
+        
+        /* Glassmorphism for Mobile Menu */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    /* Check for RGB variable availability for true transparency */
+    @supports (color: rgba(var(--accent-rgb), 0.1)) {
+        .mobile-menu {
+             /* We can't easily extract rgb from hex var(--bg) in pure CSS without preprocessor, 
+                so we stick to solid bg or use hardcoded values if needed. 
+                For now standard var(--bg) is fine. */
+        }
+    }
+
+    .mobile-menu.open {
+        transform: translateY(0);
+    }
+
+    .mobile-menu a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 18px; /* Slightly larger for touch targets */
+        font-weight: 500;
+        padding: 8px 16px; /* Larger touch target area */
+        border-radius: 8px;
+    }
+    
+    .mobile-menu a:active {
+        background-color: var(--surface);
+        color: var(--accent);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 54px); /* Optimization: Lower minimum size for small mobiles */
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.15;
+      background: linear-gradient(90deg, var(--text) 0%, var(--muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      margin-bottom: 24px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 24px;
+        background: var(--accent);
+        border-radius: 2px;
+    }
+
+    p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    /* ===== SOCIAL ICONS ===== */
+    .social-icons {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    .social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    /* Optimization: Hover only on non-touch devices to avoid sticky states */
+    @media (hover: hover) {
+        .social-icon:hover {
+            background-color: var(--accent);
+            color: #ffffff !important;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            /* Use accent-rgb for shadow */
+            box-shadow: 0 5px 15px rgba(var(--accent-rgb), 0.25);
+        }
+        
+        /* On Hover: Make it pop (brighten it up) */
+        .social-icon:hover img {
+            filter: grayscale(100%) brightness(1.5);
+            opacity: 1;
+        }
+    }
+    
+    .social-icon:active {
+        transform: scale(0.95);
+    }
+    
+    .social-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+
+    .social-icon img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        /* Default: Grayscale to remove color, slightly reduced opacity to match text */
+        filter: grayscale(100%);
+        opacity: 0.7;
+        transition: all 0.3s;
+    }
+    
+    .social-icon i {
+        font-size: 20px;
+    }
+
+    /* ===== CTA BUTTON ===== */
+    .cta-button {
+      display: inline-block;
+      margin-top: 32px;
+      padding: 14px 32px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 500;
+      border-radius: 999px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      border: 1px solid var(--text);
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+    }
+
+    @media (hover: hover) {
+        .cta-button:hover {
+          background: var(--accent);
+          color: #ffffff;
+          border-color: var(--accent);
+          transform: translateY(-2px);
+          /* Use accent-rgb for shadow */
+          box-shadow: 0 10px 25px rgba(var(--accent-rgb), 0.25);
+          text-decoration: none;
+        }
+    }
+    
+    .cta-button:active {
+        transform: scale(0.98);
+    }
+
+    /* ===== HOME ===== */
+    .split-layout {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: stretch; 
+      position: relative;
+    }
+
+    .text-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .intro-block {
+      padding-top: 180px;
+      padding-bottom: 60px;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .about-block {
+      padding-top: 30px;
+      padding-bottom: 110px;
+    }
+
+    .about-block p {
+      text-align: justify;
+      margin-bottom: 24px;
+    }
+    
+    .about-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .image-column {
+      padding-top: 180px;
+      height: 100%; 
+    }
+
+    .sticky-img {
+      position: sticky;
+      top: 120px;
+      width: 100%;
+      max-height: 75vh;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background-color: #eee;
+      transition: background-color 0.3s, border-color 0.3s;
+      box-shadow: 0 20px 40px var(--shadow);
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (hover: hover) {
+        a:hover {
+          text-decoration: underline;
+        }
+    }
+
+
+    /* ===== FULL WIDTH SECTIONS ===== */
+    section.full-width {
+      max-width: 1100px;
+      margin: auto;
+      padding: 80px 32px;
+    }
+
+    /* ===== CARDS ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    
+    /* Specific Layout for Research Section to be Horizontal */
+    #research .grid {
+        grid-template-columns: 1fr;
+        max-width: 900px; /* Optimal reading width for lists */
+        margin: 0 auto;
+    }
+
+    /* LOAD MORE BUTTON STYLES */
+    .load-more-container {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .hidden-card {
+        display: none !important;
+    }
+
+    .load-more-btn {
+        display: inline-block;
+        padding: 12px 28px;
+        background: transparent;
+        color: var(--text);
+        font-weight: 500;
+        border-radius: 999px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        border: 1px solid var(--border);
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+    }
+
+    @media (hover: hover) {
+        .load-more-btn:hover {
+            background: var(--surface);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+    }
+    
+    .load-more-btn:active {
+        transform: scale(0.98);
+        background: var(--surface);
+    }
+
+    /* ===== NOTICE ===== */
+    .notice-container {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .notice-text {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--accent); /* Clean solid color */
+      letter-spacing: 0.3px;
+      /* Blinking Animation to attract attention */
+      animation: blink 1s infinite ease-in-out;
+      
+      /* Mobile optimization: Allow wrapping for small screens */
+      flex-wrap: wrap;
+      line-height: 1.4;
+      padding: 0 10px;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+    
+    .notice-text i {
+        font-size: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Horizontal Card Internal Layout for Research */
+    #research .card {
+        position: relative;
+        gap: 24px;
+    }
+
+    /* Image Holder Styles */
+    #research .card-image {
+        width: 100%;
+        height: 220px; /* Increased height for mobile */
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        background: var(--surface);
+    }
+
+    #research .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures image fills box without stretching */
+        transition: transform 0.5s ease;
+    }
+
+    @media (hover: hover) {
+        #research .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+    }
+
+    @media (min-width: 768px) {
+        #research .card {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 32px;
+        }
+
+        #research .card .content-wrapper {
+            flex: 1;
+        }
+
+        /* Adjust Image size for Desktop */
+        /* MODIFIED: Increased size from 220px/140px to 300px/200px */
+        #research .card-image {
+            width: 300px; 
+            height: 200px; 
+            order: 2; /* Ensures image is on the right */
+        }
+
+        #research .card .read-more {
+            margin-top: 16px; /* Space between text and button */
+            padding-top: 0;
+            display: inline-flex;
+        }
+    }
+
+    @media (hover: hover) {
+        .card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 15px 35px var(--shadow);
+          border-color: var(--accent);
+        }
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .card-icon {
+        font-size: 24px;
+        color: var(--accent);
+        /* Use accent-rgb for background */
+        background: rgba(var(--accent-rgb), 0.1);
+        padding: 8px;
+        border-radius: 8px;
+        line-height: 1;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+    }
+    
+    /* List styles in cards */
+    .card ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .card ul li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        color: var(--muted);
+        font-size: 15px;
+    }
+
+    .card ul li::before {
+        content: '•';
+        color: var(--accent);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    /* Clickable Card Styles */
+    a.card {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* ===== PUBLICATIONS ===== */
+    .pub-meta {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--accent);
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .read-more {
+        margin-top: auto;
+        padding-top: 16px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* ===== CONTACT ===== */
+    form {
+      max-width: 520px; /* Keep this for mobile/default behavior */
+    }
+
+    /* New Layout Styles for Contact Section */
+    .contact-container {
+      display: flex;
+      /* Adjusted Gap for new card layout */
+      gap: 120px; 
+      align-items: flex-start;
+      padding-bottom: 60px;
+    }
+
+    /* Allow form to expand in the flex container */
+    .contact-container form {
+      flex: 1; 
+      width: 100%;
+      max-width: none; 
+    }
+
+    /* Updated Contact Info Side */
+    .contact-info-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 10px;
+    }
+
+    /* Header for Contact Info */
+    .contact-label {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* New Contact Card Style */
+    .contact-card {
+      /* Changed from flex-row to column to support expansion */
+      display: flex;
+      flex-direction: column;
+      padding: 0; /* Removing padding from container, applying to inner elements */
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; /* Softer corners */
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header part of the card (Always Visible) */
+    .contact-card-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 18px 24px;
+        width: 100%;
+    }
+
+    /* Expansion part of the card (Hidden by default) */
+    .card-actions {
+        display: flex;
+        gap: 10px;
+        padding: 0 24px;
+        /* Animation properties */
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Expanded State */
+    .contact-card.expanded {
+        border-color: var(--accent);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        background: linear-gradient(to bottom right, var(--surface), rgba(var(--accent-rgb), 0.05));
+    }
+
+    .contact-card.expanded .card-actions {
+        max-height: 80px; /* Enough to show buttons */
+        opacity: 1;
+        padding-bottom: 18px; /* Add padding when expanded */
+    }
+
+    @media (hover: hover) {
+        .contact-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+          border-color: var(--accent);
+        }
+    }
+    
+    /* Action Buttons inside Card */
+    .action-btn {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    @media (hover: hover) {
+        .action-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+    }
+    
+    .action-btn:active {
+        transform: scale(0.96);
+    }
+
+    /* Icon Box within Contact Card */
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px; /* Soft square instead of circle for modern look */
+      /* Use accent-rgb for background */
+      background: rgba(var(--accent-rgb), 0.1);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+
+    @media (hover: hover) {
+        .contact-card:hover .icon-box {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.05); /* Gentle pop effect */
+        }
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+      opacity: 0.8;
+    }
+
+    .card-value {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+      word-break: break-word; /* Prevents ugly mid-word breaks */
+      line-height: 1.3;
+    }
+
+    @media (max-width: 900px) {
+        .contact-container {
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .contact-info-side {
+            padding-top: 0;
+        }
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      /* Mobile optimization: prevent font zoom on input focus by ensuring 16px+ size */
+    }
+
+    body.dark-mode input, body.dark-mode textarea {
+        box-shadow: none;
+        border: 1px solid #ffffff;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      /* Use accent-rgb for shadow */
+      box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.1);
+    }
+
+    button[type="submit"] {
+      padding: 14px 32px;
+      background: var(--text); 
+      color: var(--bg);        
+      font-weight: 500;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      border: 1px solid var(--text);
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    @media (hover: hover) {
+        button[type="submit"]:hover {
+          background: var(--accent);
+          color: #ffffff;
+          border-color: var(--accent);
+          transform: translateY(-2px);
+          /* Use accent-rgb for shadow */
+          box-shadow: 0 10px 25px rgba(var(--accent-rgb), 0.25);
+        }
+    }
+    
+    button[type="submit"]:active {
+        transform: scale(0.98);
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    /* ===== ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .split-layout {
+        display: flex;
+        flex-direction: column;
+        padding: 0 24px;
+      }
+
+      .intro-block {
+        /* Mobile Optimization: Reduce padding to bring content higher */
+        padding-top: 100px; 
+        padding-bottom: 40px;
+        min-height: auto;
+      }
+
+      .image-column {
+        padding-top: 0;
+        margin-bottom: 40px;
+        height: auto;
+      }
+
+      .sticky-img {
+        position: static;
+        max-height: 400px;
+      }
+
+      .about-block {
+        padding-top: 0;
+        padding-bottom: 50px;
+      }
+      
+      /* Mobile Optimization: Left align text for better readability on narrow screens */
+      .about-block p {
+        text-align: left;
+      }
+
+      .nav {
+        padding: 0 20px;
+      }
+
+      /* Hide Desktop Links */
+      .nav-links {
+        display: none;
+      }
+
+      /* Show Mobile Toggle */
+      .mobile-toggle {
+          display: flex;
+      }
+      
+      /* Mobile Optimization: Tighter padding on sections */
+      section.full-width {
+        padding: 60px 20px;
+      }
+      
+      .grid {
+        gap: 20px;
+      }
+      
+      /* Allow text wrapping in notice */
+      .notice-text {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 32px;
+        }
+        
+        .intro-block {
+            padding-top: 90px;
+        }
+        
+        .contact-container {
+            gap: 30px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#home" class="logo">Sairam Ithineni</a>
+    
+    <nav>
+        <!-- Desktop Menu -->
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#research">Research</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <div class="controls">
+             <!-- Theme Toggle -->
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <i class="ri-menu-4-line"></i>
+            </button>
+        </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile Dropdown Menu -->
+<div class="mobile-menu" id="mobile-menu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#work" onclick="closeMenu()">Work</a>
+    <a href="#research" onclick="closeMenu()">Research</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<div class="split-layout">
+  <div class="text-column">
+    <div id="home" class="intro-block reveal">
+      <span class="subtitle">Hello, I'm Sairam</span>
+      <h1>Experimental <br>Condensed Matter Physicist</h1>
+      <p>Investigating emergent quantum phenomena in complex oxide heterostructures, frustrated magnetic lattices, and topological semimetal systems.</p>
+            <p>Current Affiliation : <a href="https://www.iopb.res.in/" target="_blank" > Institute of Physics, Bhubaneswar.</a><br>Supervised by : <a href="https://www.iopb.res.in/~dsamal/index.php" target="_blank"> Dr. Debakanta Samal. </a></p>
+            
+            <!-- SOCIAL ICONS START -->
+            <div class="social-icons">
+                <!-- ResearchGate -->
+                <a href="https://www.researchgate.net/profile/Sairam-Ithineni-2?ev=hdr_xprf" target="_blank" class="social-icon" aria-label="ResearchGate">
+                    <!-- Image for ResearchGate Icon -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" alt="RG Logo">
+                </a>
+                
+                <!-- Google Scholar -->
+                <a href="https://scholar.google.com/citations?hl=en&user=kbCXwF4AAAAJ" target="_blank" class="social-icon" aria-label="Google Scholar">
+                    <i class="ri-graduation-cap-fill"></i>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/sairam-ithineni-abba82219/" target="_blank" class="social-icon" aria-label="LinkedIn">
+                    <i class="ri-linkedin-fill"></i>
+                </a>
+
+                <!-- ORCID -->
+                <a href="https://orcid.org/my-orcid?orcid=0009-0006-6986-7317" target="_blank" class="social-icon" aria-label="ORCID">
+                    <!-- SVG for ORCID Icon -->
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.306v7.419h2.197c2.74 0 3.741-1.928 3.741-3.71 0-1.771-1.047-3.71-3.618-3.71h-2.32z"/></svg>
+                </a>
+            </div>
+            <div>
+              <a href="#contact" class="cta-button">Contact Me</a>
+            </div>
+    </div>
+
+    <div id="about" class="about-block reveal">
+    <h2>About</h2>
+      <p>I am an experimental condensed matter physicist with a research focus on complex oxide heterostructures, frustrated magnetic lattices, and topological semimetal systems. My work investigates emergent quantum phenomena arising from strong electronic correlations and symmetry-driven effects, with particular emphasis on magnetotransport and spin-dependent transport mechanisms.</p>
+      <p>Experimentally, I specialize in thin-film synthesis, structural and electronic characterization, and low-temperature magnetotransport measurements. Through interface engineering and symmetry control, I aim to realize and manipulate novel quantum phases, bridging fundamental condensed matter physics with future spintronic and quantum electronic technologies.</p>
+      
+      <!-- DOWNLOAD CV BUTTON -->
+      <div>
+        <a href="https://drive.google.com/file/d/1BEq4Rl4CYWcrPG_-Kop4if1AUfRnLrOu/view?usp=sharing" target="_blank" class="cta-button">Download CV</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-column reveal">
+    <img src="Sairam.png" alt="Sairam Ithineni Profile" class="sticky-img">
+  </div>
+</div>
+
+<section id="work" class="full-width reveal">
+  
+  <!-- Professional Notification -->
+  <div class="notice-container">
+      <div class="notice-text">
+        <i class="ri-briefcase-4-line"></i>
+        Open to postdoctoral research opportunities with a focus on Quantum Materials
+      </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+          <i class="ri-microscope-line card-icon"></i>
+          <h3>Research Focus</h3>
+      </div>
+      <ul>
+        <li>Correlated Oxides & Topological Materials</li>
+        <li>Pyrochlore & Frustrated Lattices</li>
+        <li>Spin Transport</li>
+        <li>Interface & Magnetism</li>
+      </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <i class="ri-flask-line card-icon"></i>
+            <h3>Experimental Skills</h3>
+        </div>
+      <ul>
+        <li>Pulsed Laser Deposition (Excel, TSST)</li>
+        <li>Powder & Thin Film XRD</li>
+        <li>MPMS (Squid Magnetometer)</li>
+        <li>Closed Cycle Cryostat</li>
+        <li>High-Temperature Furnaces</li>
+        <li>Wire Bonder</li>
+      </ul>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <i class="ri-code-s-slash-line card-icon"></i>
+            <h3>Soft Skills</h3>
+        </div>
+      <ul>
+        <li>Origin</li>
+        <li>Mathematica, Python, GNU Plot</li>
+        <li>Adobe Illustrator</li>
+        <li>Qiskit (Under Progress)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="full-width reveal">
+  <h2>Research Highlights</h2>
+  <div class="grid" id="research-grid">
+    <a href="research.html" target="_blank" class="card" rel="noopener noreferrer">
+      <div class="content-wrapper">
+        <div class="pub-meta">Physical Review B</div>
+        <h3 style="font-size: 18px; line-height: 1.4; margin-bottom: 12px;">Influence of Kondo effect on Spin Chirality induced GHE in Weakly frustrated Ruthenium Pyrochlore</h3>
+        <p style="font-size: 14px;">The spin-chirality-induced geometrical Hall effect (GHE) originates from a real-space Berry phase acquired by itinerant electrons traversing noncoplanar spin textures with finite scalar chirality, producing an emergent magnetic field.</p>
+        <div class="read-more">Read Paper <i class="ri-arrow-right-line"></i></div>
+      </div>
+      <div class="card-image">
+        <img src="research/research1.png" alt="Paper Preview">
+      </div>
+    </a>
+
+    <a href="#about" target="_blank" class="card hidden-card" rel="noopener noreferrer">
+      <div class="content-wrapper">
+        <div class="pub-meta">Under Review</div>
+        <h3 style="font-size: 18px; line-height: 1.4; margin-bottom: 12px;">Interfacial Octahedral Distortion Induced Weyl Semimetallicity and Anomalous Hall Effect in SrNbO₃/LaFeO₃ Bilayers</h3>
+        <p style="font-size: 14px;">The Dirac semimetallic state in SrNbO₃/SrTiO₃ thin films is stabilized by the a⁰a⁰c⁻ octahedral rotations protected by nonsymmorphic symmetry. Upon interfacing with LaFeO₃, interface-induced lattice distortions lift the Dirac degeneracy.</p>
+        <div class="read-more">Read Paper <i class="ri-arrow-right-line"></i></div>
+      </div>
+      <div class="card-image">
+        <img src="research/research2.png" alt="Paper Preview">
+      </div>
+    </a>
+
+    <a href="#about" target="_blank" class="card hidden-card" rel="noopener noreferrer">
+      <div class="content-wrapper">
+        <div class="pub-meta">Under Progress</div>
+        <h3 style="font-size: 18px; line-height: 1.4; margin-bottom: 12px;">Probing the Non collinear Magnetism in CoV2O4 using Spin hall Magnetoresistance</h3>
+        <p style="font-size: 14px;">CoV₂O₄ hosts a rich magnetic phase diagram comprising paramagnetic, collinear ferrimagnetic, spin-reorientation, and noncollinear magnetic states. We probe the noncollinear magnetism using spin Hall magnetoresistance.</p>
+        <div class="read-more">Read Paper <i class="ri-arrow-right-line"></i></div>
+      </div>
+      <div class="card-image">
+        <img src="research/research3.png" alt="Paper Preview">
+      </div>
+    </a>
+  </div>
+  
+  <div class="load-more-container">
+      <button id="load-more-btn" class="load-more-btn">Load More Research</button>
+      <button id="show-less-btn" class="load-more-btn" style="display: none;">Show Less</button>
+  </div>
+</section>
+
+<section id="contact" class="full-width reveal">
+  <h2>Get In Touch</h2>
+  
+  <div class="contact-container">
+      <form action="https://formspree.io/f/mzddbopw" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required/>
+        <input type="email" name="email" placeholder="Your Email" required/>
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <div class="contact-info-side">
+          <div class="contact-card" onclick="toggleCard(this)">
+              <div class="contact-card-header">
+                  <div class="icon-box">
+                      <i class="ri-mail-send-line"></i>
+                  </div>
+                  <div class="card-content">
+                      <span class="card-label">Personal Email</span>
+                      <span class="card-value">sairamithineni@gmail.com</span>
+                  </div>
+              </div>
+              <div class="card-actions">
+                  <button class="action-btn" onclick="copyToClipboard(event, 'sairamithineni@gmail.com')">
+                      <i class="ri-file-copy-line"></i> Copy
+                  </button>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sairamithineni@gmail.com" target="_blank" class="action-btn" onclick="event.stopPropagation()">
+                      <i class="ri-mail-line"></i> Gmail
+                  </a>
+              </div>
+          </div>
+          
+          <div class="contact-card" onclick="toggleCard(this)">
+              <div class="contact-card-header">
+                  <div class="icon-box">
+                      <i class="ri-building-4-line"></i>
+                  </div>
+                  <div class="card-content">
+                      <span class="card-label">Institute Email</span>
+                      <span class="card-value">sairam.i@iopb.res.in</span>
+                  </div>
+              </div>
+              <div class="card-actions">
+                  <button class="action-btn" onclick="copyToClipboard(event, 'sairam.i@iopb.res.in')">
+                      <i class="ri-file-copy-line"></i> Copy
+                  </button>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sairam.i@iopb.res.in" target="_blank" class="action-btn" onclick="event.stopPropagation()">
+                      <i class="ri-mail-line"></i> Gmail
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<footer>
+  © Sairam Ithineni
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  const toggleBtn = document.getElementById('theme-toggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+  });
+
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const icon = mobileToggle.querySelector('i');
+    if(mobileMenu.classList.contains('open')){
+        icon.classList.replace('ri-menu-4-line', 'ri-close-line');
+    } else {
+        icon.classList.replace('ri-close-line', 'ri-menu-4-line');
+    }
+  });
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileToggle.querySelector('i').classList.replace('ri-close-line', 'ri-menu-4-line');
+  }
+
+  const sections = document.querySelectorAll('div[id], section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  function updateActiveSection() {
+    const scrollPosition = window.scrollY;
+    
+    const headerOffset = 150; 
+    
+    let current = '';
+
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        
+        if (scrollPosition >= (sectionTop - headerOffset)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+        current = 'contact';
+    }
+
+    navLinks.forEach(link => {
+      const isActive = link.classList.contains('active');
+      const shouldBeActive = current && link.getAttribute('href') === '#' + current;
+      
+      if (shouldBeActive && !isActive) {
+        link.classList.add('active');
+      } else if (!shouldBeActive && isActive) {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  let isScrolling = false;
+
+  window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        updateActiveSection();
+        isScrolling = false;
+      });
+      isScrolling = true;
+    }
+  });
+
+  window.addEventListener('load', updateActiveSection);
+
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  const showLessBtn = document.getElementById('show-less-btn');
+  const hiddenCards = document.querySelectorAll('.hidden-card');
+
+  if(loadMoreBtn && showLessBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+        hiddenCards.forEach(card => {
+            card.classList.remove('hidden-card');
+            setTimeout(() => {
+                card.classList.add('active'); 
+            }, 10);
+        });
+        loadMoreBtn.style.display = 'none';
+        showLessBtn.style.display = 'inline-block';
+    });
+
+    showLessBtn.addEventListener('click', () => {
+        hiddenCards.forEach(card => {
+            card.classList.add('hidden-card');
+            card.classList.remove('active');
+        });
+        showLessBtn.style.display = 'none';
+        loadMoreBtn.style.display = 'inline-block';
+        
+        document.getElementById('research').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  function toggleCard(card) {
+
+      document.querySelectorAll('.contact-card').forEach(c => {
+          if (c !== card) {
+              c.classList.remove('expanded');
+          }
+      });
+      card.classList.toggle('expanded');
+  }
+
+  function copyToClipboard(event, text) {
+      event.stopPropagation();
+      
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      
+      textarea.select();
+      document.execCommand('copy');
+      
+      document.body.removeChild(textarea);
+      
+      const button = event.currentTarget;
+      const originalHTML = button.innerHTML;
+      
+      button.innerHTML = '<i class="ri-check-line"></i> Copied!';
+      button.style.background = 'var(--accent)';
+      button.style.color = '#fff';
+      
+      setTimeout(() => {
+          button.innerHTML = originalHTML;
+          button.style.background = '';
+          button.style.color = '';
+      }, 2000);
+  }
+</script>
+
+</body>
+</html>

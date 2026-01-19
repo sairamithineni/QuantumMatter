@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Research Summary | Sairam Ithineni</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Research summary on the Interplay of Kondo Coupling and Geometrical Frustration in Metallic Pyrochlore by Sairam Ithineni." />
+
+  <!-- Preconnects for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Remix Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8f9fb;
+      --text: #1a1a1a;
+      --muted: #666666;
+      /* Teal Accent from Original Design */
+      --accent: #00897b;
+      --accent-rgb: 0, 137, 123;
+      --border: #e6e6e6;
+      --shadow: rgba(0,0,0,0.06);
+      --header-height: 70px;
+      --menu-width: 320px;
+    }
+
+    body.dark-mode {
+      --bg: #111111;
+      --surface: #1c1c1c;
+      --text: #e0e0e0;
+      --muted: #a0a0a0;
+      /* Teal Accent Dark Mode */
+      --accent: #4db6ac;
+      --accent-rgb: 77, 182, 172;
+      --border: #333333;
+      --shadow: rgba(0,0,0,0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html {
+      scroll-padding-top: var(--header-height);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Original Dark Mode Pattern */
+    body.dark-mode {
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
+        radial-gradient(white, rgba(255,255,255,.05) 2px, transparent 3px);
+      background-size: 550px 550px, 350px 350px, 250px 250px;
+      background-position: 0 0, 40px 60px, 130px 270px;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: var(--header-height);
+      z-index: 1000;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    body.dark-mode header {
+      background: rgba(17,17,17,0.85);
+    }
+
+    .nav {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 32px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 22px;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    @media (hover: hover) {
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: calc(var(--menu-width) * -1);
+      width: var(--menu-width);
+      height: 100vh;
+      background: var(--bg);
+      z-index: 1002;
+      border-right: 1px solid var(--border);
+      transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 24px;
+      box-shadow: 5px 0 15px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .side-menu.open { left: 0; }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .menu-list { list-style: none; }
+    .menu-list li { margin-bottom: 12px; }
+
+    .menu-link {
+      cursor: pointer;
+      padding: 10px 14px;
+      display: block;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .menu-link:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .menu-link.active {
+      background: var(--surface);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1001;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(2px);
+    }
+
+    .menu-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* Content */
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: calc(var(--header-height) + 40px) 32px 100px;
+      min-height: 80vh;
+      transition: opacity 0.3s ease;
+    }
+    
+    main.fading-out { opacity: 0; }
+
+    .paper-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 48px);
+      margin-bottom: 16px;
+    }
+
+    .paper-meta {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    .summary-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .summary-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .paper-image-container {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: 0 10px 20px var(--shadow);
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .paper-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .paper-placeholder-text {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    @media (hover: hover) {
+      .paper-image-container:hover { transform: translateY(-2px); }
+      .paper-image-container:hover img { transform: scale(1.05); }
+    }
+
+    /* Original Pill Button Style */
+    .cta-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    @media (hover: hover) {
+      .cta-button:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(var(--accent-rgb), 0.25);
+      }
+    }
+
+    .summary-content p {
+      margin-bottom: 20px;
+      font-size: 15.5px;
+      text-align: justify;
+    }
+
+    sub, sup {
+      font-size: 0.75em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    sub { bottom: -0.25em; }
+    sup { top: -0.5em; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 32px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .summary-layout { grid-template-columns: 1fr; }
+      .side-menu { --menu-width: 280px; }
+      main { padding-left: 24px; padding-right: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Open Research Menu">
+        <i class="ri-menu-line"></i>
+      </button>
+      <a href="/" class="logo">Sairam Ithineni</a>
+    </div>
+    <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+      <i class="ri-moon-line"></i>
+    </button>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <span class="menu-title">Selected Papers</span>
+    <button class="icon-btn close-menu" id="closeMenu" aria-label="Close Menu">
+      <i class="ri-close-line"></i>
+    </button>
+  </div>
+  <ul class="menu-list" id="paperMenuList"></ul>
+</div>
+
+<main id="mainContent">
+  <h1 class="paper-title" id="paperTitle"></h1>
+  <div class="paper-meta" id="paperMeta"></div>
+
+  <div class="summary-layout">
+    <div class="summary-left">
+      <div class="paper-image-container" id="paperImageContainer">
+      </div>
+      
+      <a href="" target="_blank" class="cta-button" id="paperLink">
+        Read Publication <i class="ri-arrow-right-up-line"></i>
+      </a>
+    </div>
+    <div class="summary-content" id="paperText"></div>
+  </div>
+</main>
+
+<footer>
+  © Sairam Ithineni | <a href="/">Back to Portfolio</a>
+</footer>
+
+<script>
+  const papers = [
+    {
+      id: 1,
+      title: "Interplay of Kondo Coupling and Geometrical Frustration in a Metallic Pyrochlore",
+      meta: "Research Summary",
+      image: "research/research1.png",
+      imageText: "Image",
+      link: "https://journals.aps.org/prb/abstract/10.1103/d6md-w9pb", 
+      content: `
+        <p>This work investigates the interplay between geometrical frustration and Kondo coupling in the rare-earth-doped pyrochlore oxide Bi<sub>1.1</sub>Nd<sub>0.9</sub>Ru<sub>2</sub>O<sub>7</sub> (BNRO), a system that lies between the nonmagnetic metal Bi<sub>2</sub>Ru<sub>2</sub>Ru<sub>2</sub>O<sub>7</sub> and the magnetically ordered insulator Nd<sub>2</sub>Ru<sub>2</sub>O<sub>7</sub>. Pyrochlore oxides are well known for hosting exotic magnetic and electronic phases due to their corner-sharing tetrahedral lattice.</p>
+        <p>Magnetic measurements reveal strong local ⟨111⟩ Ising anisotropy of the Nd<sup>3+</sup> ions with an effective magnetic moment of 2.38 &mu;<sub>B</sub> per Nd ion. A frustration parameter <em>f</em> &approx; 1.2 places BNRO in the weakly frustrated regime, while low-temperature specific heat shows a Schottky-type anomaly, indicating finite <em>f</em>–<em>d</em> exchange coupling.</p>
+        <p>Electrical transport measurements reveal a low-temperature resistivity upturn and negative magnetoresistance, characteristic of Kondo scattering. Hall measurements show an anomalous Hall effect but no geometrical Hall effect down to 2 K, in contrast to related frustrated pyrochlores.</p>
+        <p>The absence of a geometrical Hall effect is attributed to dominant Kondo screening, which suppresses the transfer of spin chirality from localized Nd moments to the Ru sublattice. This study demonstrates how Kondo physics can override geometrical frustration, fundamentally altering transport behavior in metallic pyrochlores.</p>
+      `
+    },
+  ];
+
+  let currentIndex = 0;
+
+  const menuList = document.getElementById('paperMenuList');
+  const elTitle = document.getElementById('paperTitle');
+  const elMeta = document.getElementById('paperMeta');
+  const elImageContainer = document.getElementById('paperImageContainer');
+  const elLink = document.getElementById('paperLink');
+  const elText = document.getElementById('paperText');
+  
+  function init() {
+    menuList.innerHTML = papers.map((p, i) => `
+      <li>
+        <div class="menu-link ${i === 0 ? 'active' : ''}" onclick="loadPaper(${i})">
+          ${p.title}
+        </div>
+      </li>
+    `).join('');
+
+    loadPaper(0, false);
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('#themeToggle i').className = 'ri-sun-line';
+    }
+  }
+
+  window.loadPaper = function(index, close = true) {
+    currentIndex = index;
+    document.querySelectorAll('.menu-link').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+
+    document.getElementById('mainContent').classList.add('fading-out');
+    
+    setTimeout(() => {
+      const paper = papers[index];
+      elTitle.innerHTML = paper.title;
+      elMeta.textContent = paper.meta;
+      
+      if (paper.image) {
+        elImageContainer.innerHTML = `<img src="${paper.image}" alt="${paper.title}" loading="lazy">`;
+      } else {
+        elImageContainer.innerHTML = `<div class="paper-placeholder-text">${paper.imageText || 'No Image Available'}</div>`;
+      }
+
+      elLink.href = paper.link;
+      elText.innerHTML = paper.content;
+      document.getElementById('mainContent').classList.remove('fading-out');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 300);
+
+    if (close) closeMenu();
+  };
+
+  function openMenu() { 
+    document.getElementById('sideMenu').classList.add('open');
+    document.getElementById('menuOverlay').classList.add('open');
+  }
+
+  function closeMenu() { 
+    document.getElementById('sideMenu').classList.remove('open');
+    document.getElementById('menuOverlay').classList.remove('open');
+  }
+
+  document.getElementById('menuToggle').addEventListener('click', openMenu);
+  document.getElementById('closeMenu').addEventListener('click', closeMenu);
+  document.getElementById('menuOverlay').addEventListener('click', closeMenu);
+  
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    document.querySelector('#themeToggle i').className = isDark ? 'ri-sun-line' : 'ri-moon-line';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  init();
+</script>
+</body>
+</html>
